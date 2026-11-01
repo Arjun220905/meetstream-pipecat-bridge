@@ -13,8 +13,10 @@ Target: local Docker Compose, one trusted operator, one bridge worker and an
 independent cleanup worker. This is not a multi-tenant hosted service or an HA
 cluster. The reference source is published at
 [Arjun220905/meetstream-pipecat-bridge](https://github.com/Arjun220905/meetstream-pipecat-bridge).
-Native Windows launcher CI passed on October 29; the publishing repository
-has its own [Checks workflow](https://github.com/Arjun220905/meetstream-pipecat-bridge/actions/workflows/checks.yml).
+The [November 1 public CI run](https://github.com/Arjun220905/meetstream-pipecat-bridge/actions/runs/41278502218)
+passed all seven jobs: Linux and Windows matrices, production-container tests,
+Python audits, and the high/critical image advisory gate. Windows desktop
+end-to-end acceptance remains pending.
 
 ## Scope
 
@@ -63,8 +65,7 @@ label. `tenant` is not tenant authentication, billing enforcement, or RBAC.
   Continuous production needs the off-host expiry sweep/alerts described in
   operations.md. That schedule has not been installed. Meet/Teams do not enforce
   a hard in-call timeout themselves.
-- **Release process:** run the checked-in CI on the publishing repository, review
-  artifacts, tag a release, and configure the deployment's proxy logging, secrets,
+- **Release process:** publication CI passed November 1. Review artifacts, tag a release, and configure the deployment's proxy logging, secrets,
   encrypted storage, alerts, and retention policy. These are not configured merely
   by building a local container.
 - **Capacity:** four sessions is a conservative admission cap, not a measured

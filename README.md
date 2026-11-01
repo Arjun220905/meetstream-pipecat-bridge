@@ -230,8 +230,9 @@ uv run --frozen --extra dev python -m build
 The [Checks workflow](https://github.com/Arjun220905/meetstream-pipecat-bridge/actions/workflows/checks.yml) runs
 Python 3.11–3.13 tests, native Windows launcher tests, container integration tests,
 lock consistency, and dependency/image advisory scans on pushes and pull requests.
-It can also be run manually from Actions. Six native Windows launcher checks
-passed per Python version in the October 29 validation; full Windows desktop
+It can also be run manually from Actions. All seven jobs passed in the
+[November 1 public run](https://github.com/Arjun220905/meetstream-pipecat-bridge/actions/runs/41278502218),
+including six native Windows launcher checks per Python version; full Windows desktop
 Docker/live-meeting acceptance remains pending. See [verification](docs/verification.md)
 for dated evidence and limits. Tests do not call paid providers. To rerun only
 the native Windows launcher checks after first-time setup:

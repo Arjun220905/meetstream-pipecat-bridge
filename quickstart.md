@@ -43,7 +43,7 @@ and `./stop` examples below are for Mac/Linux; use the matching Windows command
 shown beside each step. Do not use `--native` on Windows: that flag is only the
 Mac/Linux development mode. Windows controls Docker directly without WSL.
 
-Windows CI passed on Python 3.11–3.13, including first-run setup, commands,
+Windows CI passed on Python 3.11–3.13 on November 1, including first-run setup, commands,
 locking, permissions, and background-process shutdown. Full Docker Desktop and
 live-meeting acceptance on a Windows desktop is still pending; see
 [verification](docs/verification.md#native-windows-launcher--implementation-and-acceptance-status).

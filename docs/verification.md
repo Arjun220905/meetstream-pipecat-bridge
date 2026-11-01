@@ -17,6 +17,27 @@ concurrency acceptance. Windows-only remote CI was run separately before
 publication, as described below. Current repository checks are visible in
 [Actions](https://github.com/Arjun220905/meetstream-pipecat-bridge/actions/workflows/checks.yml).
 
+### Public CI — November 1, 2026
+
+[All seven jobs passed](https://github.com/Arjun220905/meetstream-pipecat-bridge/actions/runs/41278502218) for
+source commit `41fe596986336686bd4fafd4560c97a8b5e78f71`:
+
+| Check | Result |
+| --- | --- |
+| Linux Python 3.11, 3.12, 3.13 | 40 tests passed per version; four Windows-only and one image-only check skipped |
+| Native Windows Python 3.11, 3.12, 3.13 | All six launcher checks passed per version, none skipped |
+| Linux amd64 production container | Build succeeded; 41 tests passed under network isolation/read-only/resource limits, four Windows-only checks skipped |
+| Lint, format, package build, lock consistency | Passed on all three Linux Python versions |
+| Python dependency audit | No known vulnerabilities reported by pip-audit |
+| Image advisory gate | Passed Trivy 0.76.1 with zero HIGH/CRITICAL findings; lower severities were not gated |
+
+The first public run passed its tests but the advisory scanner could not write
+to the host-mounted cache. CI now runs Trivy with the host directory owner's
+UID/GID; the repeated full workflow passed without weakening the scan gate or
+adding exceptions. This verifies an amd64 container build as well as the earlier
+local arm64 evidence. It does not verify Docker Desktop/Hyper-V on a Windows
+client or rerun the live meeting calls.
+
 ### Native Windows launcher — implementation and acceptance status
 
 `start.cmd`, `status.cmd`, and `stop.cmd` run directly in PowerShell or Command
@@ -76,7 +97,8 @@ GitHub's hosted Windows jobs use Windows Server, where
 [Docker Desktop is unsupported](https://docs.docker.com/desktop/setup/install/windows-install/).
 The successful CI run therefore does not establish Docker Desktop/Hyper-V startup,
 automatic ngrok connectivity, live meetings, or Windows production acceptance.
-It also does not extend the arm64 image scan to an untested x86-64 build.
+The separate November 1 public container job above verifies the Linux amd64
+build and its high/critical advisory gate; it does not close this Windows-host gap.
 
 To finish on an accessible supported Windows desktop with Docker Desktop using
 Hyper-V/Linux containers, configure `.env` and run these actual one-line commands
@@ -100,8 +122,8 @@ Raw captures, screenshots, detailed traces, credentials, and runtime state are
 private and excluded from this repository. `reports/...` references below identify
 maintainer-held evidence, not files included in a clone. The dated summaries here
 record what ran and what remains unverified. The original Windows validation run
-is in a private repository; public reruns are available through this repository's
-Actions workflow once complete.
+is in a private repository; public results are now linked above and available through this repository's
+Actions workflow.
 
 The zero-advisory result below is the October 29 Linux arm64 scan. Vulnerability
 databases and upstream availability change; use the latest workflow result for
